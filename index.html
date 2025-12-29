@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบประเมินความเสี่ยงต่อการติดเชื้อแผลฝีเย็บ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --low-risk: #27ae60;
+            --high-risk: #e74c3c;
+        }
+        body { font-family: 'Sarabun', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary); font-size: 22px; border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        h3 { color: var(--accent); margin-top: 20px; border-left: 5px solid var(--accent); padding-left: 10px; font-size: 18px; }
+        
+        /* Layout */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .checkbox-item { background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; transition: 0.2s; }
+        .checkbox-item:hover { background: #eef7ff; border-color: var(--accent); }
+        input[type="checkbox"] { margin-right: 10px; width: 18px; height: 18px; }
+
+        /* REEDA Table */
+        .reeda-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        .reeda-table th, .reeda-table td { border: 1px solid #eee; padding: 10px; text-align: left; }
+        .reeda-table th { background: #f8f9fa; font-weight: bold; }
+        select { width: 100%; padding: 5px; border-radius: 4px; border: 1px solid #ccc; font-family: 'Sarabun'; }
+
+        /* Button */
+        .btn-submit { display: block; width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 30px; transition: 0.3s; }
+        .btn-submit:hover { background: #2980b9; transform: translateY(-2px); }
+
+        /* Result Area */
+        #result-area { display: none; margin-top: 25px; padding: 25px; border-radius: 10px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .low-risk-box { background: #e8f5e9; border: 2px solid var(--low-risk); }
+        .high-risk-box { background: #ffebee; border: 2px solid var(--high-risk); }
+        .res-header { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 15px; }
+        .advice-section { background: white; padding: 20px; border-radius: 8px; margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        ol { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+        .highlight { font-weight: bold; color: #d35400; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>แบบประเมินความเสี่ยงต่อการติดเชื้อแผลฝีเย็บ</h1>
+
+    <h3>1. ปัจจัยเสี่ยงส่วนบุคคลและการคลอด</h3>
+    <div class="grid-container">
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="1"> อ้วน (1 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="1"> DM (1 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="1"> ซีด (1 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="1"> PROM > 18 hr (1 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="2"> FE / VE (2 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="2"> เย็บนาน > 1 hr (2 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="2"> แผลเปื้อนอุจจาระ (2 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="2"> มี Infection/ไข้ (2 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="2"> PPH/ดมยาล้วงรก (2 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="3"> 3rd degree tear (3 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="3"> 4th degree tear (3 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="3"> Resuture / Hematoma (3 คะแนน)</label>
+        <label class="checkbox-item"><input type="checkbox" class="risk-score" value="3"> ผิวหนังยุ่ย / tear เยอะ (3 คะแนน)</label>
+    </div>
+
+    <h3>2. การประเมิน REEDA Score</h3>
+    <table class="reeda-table">
+        <tr>
+            <th>หัวข้อประเมิน</th>
+            <th>เกณฑ์การให้คะแนน</th>
+            <th style="width: 120px;">คะแนน</th>
+        </tr>
+        <tr>
+            <td><b>Redness (ความแดง)</b></td>
+            <td>0=ไม่มี, 1=< 2.5mm, 2=2.5-5mm, 3=> 5mm (ทั้ง 2 ข้าง)</td>
+            <td><select class="reeda-val"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+        </tr>
+        <tr>
+            <td><b>Edema (บวม)</b></td>
+            <td>0=ไม่มี, 1=< 10mm, 2=10-20mm, 3=> 20mm</td>
+            <td><select class="reeda-val" id="edema-score"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+        </tr>
+        <tr>
+            <td><b>Ecchymosis (เขียวคล้ำ)</b></td>
+            <td>0=ไม่มี, 1=กระจายเล็กน้อย, 2=กว้าง 5-20mm, 3=กว้าง > 20mm</td>
+            <td><select class="reeda-val" id="ecchy-score"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+        </tr>
+        <tr>
+            <td><b>Discharge (สิ่งคัดหลั่ง)</b></td>
+            <td>0=ไม่มี, 1=Serum, 2=Serum+เลือด, 3=เลือด/หนอง</td>
+            <td><select class="reeda-val"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+        </tr>
+        <tr>
+            <td><b>Approximate (แผลแยก)</b></td>
+            <td>0=ปิดสนิท, 1=< 3mm, 2=แยกถึงผิวหนัง/subcu, 3=แยกถึงกล้ามเนื้อ</td>
+            <td><select class="reeda-val"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td>
+        </tr>
+    </table>
+
+    <button class="btn-submit" onclick="processEvaluation()">แสดงผลการประเมินและคำแนะนำ</button>
+
+    <div id="result-area">
+        <div id="risk-tag" class="res-header"></div>
+        <p style="text-align: center; font-size: 18px;">คะแนนรวมที่ได้: <span id="total-score-display" style="font-weight: bold;"></span> คะแนน</p>
+        
+        <div class="advice-section">
+            <h4 style="margin-top: 0;">แนวทางการพยาบาลและการดูแล:</h4>
+            <ol id="advice-list"></ol>
+        </div>
+    </div>
+</div>
+
+<script>
+function processEvaluation() {
+    let totalScore = 0;
+    
+    // รวมคะแนน Checkbox
+    document.querySelectorAll('.risk-score:checked').forEach(item => {
+        totalScore += parseInt(item.value);
+    });
+
+    // รวมคะแนน REEDA
+    document.querySelectorAll('.reeda-val').forEach(select => {
+        totalScore += parseInt(select.value);
+    });
+
+    const resultArea = document.getElementById('result-area');
+    const riskTag = document.getElementById('risk-tag');
+    const scoreDisplay = document.getElementById('total-score-display');
+    const adviceList = document.getElementById('advice-list');
+    
+    const edema = parseInt(document.getElementById('edema-score').value);
+    const ecchy = parseInt(document.getElementById('ecchy-score').value);
+
+    resultArea.style.display = 'block';
+    scoreDisplay.innerText = totalScore;
+
+    let advices = [];
+
+    if (totalScore <= 5) {
+        // --- LOW RISK ---
+        riskTag.innerText = "✓ Low Risk (ความเสี่ยงต่ำ)";
+        riskTag.style.color = "#27ae60";
+        resultArea.className = "result-box low-risk-box";
+        
+        advices = [
+            "ติดตามเฝ้าระหวังความเสี่ยงต่อการติดเชื้อ โดยใช้แถบวัดประเมินแผลฝีเย็บ และให้ค่าคะแนนตาม REEDA scale เวลา 06.00น., 14.00น. และ 22.00น.",
+            "ประเมินสัญญาณชีพทุก 4 ชั่วโมง",
+            (edema >= 2 || ecchy >= 2) ? "<span class='highlight'>เนื่องจากแผลบวม/เขียวคล้ำ:</span> ประคบแผลฝีเย็บด้วยผ้าอนามัยเย็น 20 นาที ทุก 4 ชั่วโมง ใน 24-48 ชั่วโมงแรกหลังคลอด" : "กรณีแผลบวม E=2 หรือ Ec=2 ประคบแผลฝีเย็บด้วยผ้าอนามัยเย็น 20 นาที ทุก 4 ชั่วโมง ใน 24-48 ชั่วโมงแรก",
+            "การทำความสะอาด: หากลุกเข้าห้องน้ำได้ ให้ใช้สบู่และน้ำสะอาด อย่างน้อยทุก 4 ชม. และหลังขับถ่าย | หากลุกไม่ได้ ให้พยาบาลทำความสะอาดด้วยสบู่และ NSS ที่เตียง",
+            "แนะนำเปลี่ยนผ้าอนามัยอย่างถูกวิธีอย่างน้อยทุก 4 ชั่วโมง และหลังขับถ่ายทุกครั้ง",
+            "แนะนำให้ผู้ป่วยล้างมือด้วยสบู่ ก่อนและหลังการทำความสะอาดแผลฝีเย็บ",
+            "แนะนำบริหารกล้ามเนื้ออุ้งเชิงกราน (Kegel exercises)",
+            "บันทึกผลการประเมินแผลฝีเย็บ และอาการแสดงอื่นๆ ลงในแบบบันทึก",
+            "หากพบความผิดปกติ ให้รายงานแพทย์เพื่อวางแผนการรักษาต่อไป",
+            "ให้ความรู้เกี่ยวกับการป้องกันและดูแลการติดเชื้อแผลฝีเย็บ",
+            "โทรติดตามเยี่ยม ประเมินแผลฝีเย็บ ในวันที่ 7 หลังจำหน่าย"
+        ];
+    } else {
+        // --- HIGH RISK ---
+        riskTag.innerText = "⚠ High Risk (ความเสี่ยงสูง)";
+        riskTag.style.color = "#e74c3c";
+        resultArea.className = "result-box high-risk-box";
+
+        advices = [
+            "ติดตามเฝ้าระวังความเสี่ยง โดยใช้แถบวัดประเมินแผลและให้คะแนน REEDA scale เวลา 06.00น., 14.00น. และ 22.00น.",
+            "<span class='highlight'>พบความเสี่ยงสูง:</span> ให้มีพยาบาลมาประเมินแผลฝีเย็บร่วมกันอีก 1 คน (ให้คนเดิมช่วยร่วมประเมิน)",
+            (edema >= 2 || ecchy >= 2) ? "<span class='highlight'>แผลบวม/เขียวคล้ำ:</span> ประคบเย็น 20 นาที ทุก 4 ชม. (24-48 ชม. แรก) หลังจากนั้นดูแลให้ warm sit bath ด้วยด่างทับทิม 20 นาที (06.00 และ 18.00 น.)" : "ดูแลประคบเย็น 24-48 ชม. แรก และดูแล warm sit bath ตามแผนการพยาบาล",
+            "ภายหลัง 24 ชม. หลังคลอด: ดูแลให้ warm sit bath ด้วยด่างทับทิม นาน 20 นาที เวลา 06.00 น. และ 18.00 น.",
+            "ประเมินสัญญาณชีพทุก 4 ชั่วโมง",
+            "ถ้านั่งได้ให้นั่งบนหมอนรองก้นทุกครั้ง หากไม่ได้ให้นมบุตรในท่านอน",
+            "ทำความสะอาดอวัยวะสืบพันธุ์ภายนอก (P-care) ด้วยสบู่และ NSS เวลา 06.00น., 14.00น. และ 22.00น.",
+            "ลุกเข้าห้องน้ำเองได้: ใช้สบู่และน้ำสะอาดทุก 4 ชม. / ลุกไม่ได้: ใช้สบู่และ NSS เปลี่ยนผ้าอนามัยที่เตียง",
+            "เปลี่ยนผ้าอนามัยอย่างถูกวิธีอย่างน้อยทุก 4 ชั่วโมง และหลังขับถ่ายทุกครั้ง",
+            "แนะนำล้างมือด้วยสบู่ ก่อนและหลังทำความสะอาดแผล",
+            "แนะนำบริหารกล้ามเนื้ออุ้งเชิงกราน (Kegel exercises)",
+            "หากพบความผิดปกติ/อาการติดเชื้อ <span class='highlight'>รายงานแพทย์เพื่อพิจารณารับยาปฏิชีวนะต่อไป</span>",
+            "ให้ความรู้การป้องกันติดเชื้อทั้งที่โรงพยาบาลและที่บ้าน",
+            "บันทึกผลการประเมินแผลและอาการแสดงอื่นๆ ลงในแบบบันทึก",
+            "นัดติดตามประเมินแผล 7 วันหลังคลอด ที่ <span class='highlight'>OPD 5 (จันทร์, พุธ, ศุกร์)</span>",
+            "โทรติดตามเยี่ยม ประเมินแผลฝีเย็บ ในวันที่ 7 หลังจำหน่าย"
+        ];
+    }
+
+    // Render Advice List
+    adviceList.innerHTML = advices.map(text => `<li>${text}</li>`).join('');
+    
+    // Scroll to Result
+    window.scrollTo({ top: resultArea.offsetTop, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
